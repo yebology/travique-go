@@ -8,6 +8,7 @@ type User struct {
 	Id			primitive.ObjectID		`json:"id" bson:"_id,omitempty"`			
 	Name		string					`json:"name" validate:"required,min=8"`
 	Email		string					`json:"email" validate:"required,email"`
+	Password	string					`json:"password" validate:"required,min=8"`
 	Avatar		string					`json:"avatar" validate:"required"`
 
 }
