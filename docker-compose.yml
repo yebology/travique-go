@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: backend-app
+    depends_on:
+      - database
+    restart: always
+    ports:
+      - "8080:8080"
+    env_file: .env
+    volumes:
+      - ./:/app
+    networks:
+      - travique_network
+
+  database:
+    image: mongo
+    restart: always
+    volumes:
+      - mongodb_data:/data/db
+    env_file: .env
+    networks:
+      - travique_network
+    
+volumes:
+  mongodb_data:
+
+networks:
+  travique_network:
+    

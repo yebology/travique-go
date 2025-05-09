@@ -1,16 +1,20 @@
 package controller
 
 import (
-	"context"
-	"time"
+	// "context"
+	// "time"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/yebology/travique-go/constant"
-	"github.com/yebology/travique-go/model"
-	"github.com/yebology/travique-go/output"
+	// "github.com/yebology/travique-go/constant"
+	// "github.com/yebology/travique-go/model"
+	// "github.com/yebology/travique-go/output"
 )
 
 func Register(c *fiber.Ctx) error {
+
+	return c.JSON(fiber.Map{
+        "message": "Login endpoint reached",
+    })
 
 	// ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	// defer cancel()
@@ -28,8 +32,16 @@ func Register(c *fiber.Ctx) error {
 
 func Login(c *fiber.Ctx) error {
 	 
+	return c.JSON(fiber.Map{
+        "message": "Login endpoint reached",
+    })
+
 }
 
 func EditProfile(c *fiber.Ctx) error {
+
+	return c.JSON(fiber.Map{
+        "message": "",
+    })
 
 }
