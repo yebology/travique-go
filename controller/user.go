@@ -64,10 +64,34 @@ func Register(c *fiber.Ctx) error {
 		},
 		"jwt": jwt,
 	})
-	
+
 }
 
 func Login(c *fiber.Ctx) error {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	var loginData model.Login
+	err := c.BodyParser(&loginData)
+	if err != nil {
+		return output.GetError(c, fiber.StatusBadRequest, string(constant.FailedToParseData))
+	}
+
+	collection := database.GetDatabase().Collection("user")
+	filter := bson.M{
+		"email": loginData.Email,
+	}
+
+	user, err := helper.GetSpecificUser(ctx, filter, collection)
+	if err != nil {
+		return output.GetError(c, fiber.StatusBadRequest, string(constant.InvalidAccountError))
+	}
+
+	err = helper.CheckPassword(user.Password, loginData.Password)
+	if err != nil {
+		return output.GetError(c, fiber.StatusBadRequest, string(constant.InvalidAccountError))
+	}
 	 
 	return c.JSON(fiber.Map{
         "message": "Login endpoint reached",
